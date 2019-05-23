@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# +-------------------------------------------+
+# |                                           |
+# | Maxi Perez Coto                           |
+# |                                           |
+# +-------------------------------------------+
+
+help(){
+	echo -e "NAME"
+	echo -e "\tuninstall"
+	echo -e "DESCRIPTION"
+	echo -e "\tDestroys application & data matching the named passed as parameter"
+	echo -e "\tWith great power comes great responsibility. Be careful."
+  echo -e "SYNOPSIS"
+	echo -e "\t./uninstall [SOFTWARE]"
+	echo -e "EXAMPLES"
+	echo -e "\t./uninstall mamp"
+	echo -e "\tsudo sh ./uninstall adobe"
+}
+
+if [ "$1" == "-?" ] || [ "$1" == "-h" ] || [ "$1" == "--help" ]; then
+	help
+	exit
+fi
+
+if [ -z $1 ]; then
+  echo "A program name is required"
+  exit
+fi
+
+mdfind -name "$1" | while read file; do
+	rm -rf "$file"
+done
+
+
